@@ -1,0 +1,7 @@
+enum Types {
+  ADD_TODO,
+  REMOVE_TODO,
+
+  CHANGE_TODO_TITLE,
+  CHANGE_TODO_FINISHED,
+}
