@@ -5,11 +5,12 @@ import 'redux/reducers.dart';
 import 'model/appState.dart';
 import 'pages/home.dart';
 
-void main() {
+void main() async {
   final store = Store<AppState>(
     appReducer,
     initialState: AppState.initialState(),
   );
+
   return runApp(App(store));
 }
 
@@ -28,6 +29,5 @@ class App extends StatelessWidget {
       ),
     );
   }
-
 }
 
