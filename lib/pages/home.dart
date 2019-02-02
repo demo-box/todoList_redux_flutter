@@ -13,6 +13,20 @@ class HomePage extends StatefulWidget {
 
 class HomePageState extends State<HomePage> {
   bool addTodo = false;
+  FocusNode focusNode;
+
+  @override
+  void initState() {
+    super.initState();
+    focusNode = FocusNode();
+    focusNode.addListener(() {
+      if (!focusNode.hasFocus) {
+        setState(() {
+          addTodo = false;
+        });
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,17 +49,22 @@ class HomePageState extends State<HomePage> {
         },
         child: Icon(Icons.add),
       ),
-      body: addTodo ? Stack(
-        children: <Widget>[
-          TodoList(),
-          Positioned(
-            child: InputBox(),
-            bottom: 0,
-            left: 0,
-            right: 0,
-          ),
-        ],
-      ): TodoList(),
+      body: GestureDetector(
+        onTap: () {
+          focusNode.unfocus();
+        },
+        child: addTodo ? Stack(
+          children: <Widget>[
+            TodoList(),
+            Positioned(
+              child: InputBox(focusNode),
+              bottom: 0,
+              left: 0,
+              right: 0,
+            ),
+          ],
+        ): TodoList(),
+      ),
     );
   }
 }

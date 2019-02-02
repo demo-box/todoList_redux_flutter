@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
 class InputBox extends StatelessWidget {
+  FocusNode focusNode;
+
+  InputBox(this.focusNode);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -14,6 +18,8 @@ class InputBox extends StatelessWidget {
         ],
       ),
       child: TextField(
+        focusNode: focusNode,
+        autofocus: true,
         decoration: InputDecoration(
           hintText: '添加任务',
           border: InputBorder.none,
