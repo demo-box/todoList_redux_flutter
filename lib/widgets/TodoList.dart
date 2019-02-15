@@ -6,11 +6,13 @@ class TodoList extends StatelessWidget {
   final List<Todo> data;
   final Function delete;
   final Function toggleFinished;
+  final Function toggleImportance;
 
   TodoList({
     this.data,
     this.delete,
     this.toggleFinished,
+    this.toggleImportance,
   });
 
   @override
@@ -30,7 +32,11 @@ class TodoList extends StatelessWidget {
               ),
             ),
             key: Key(todo.title),
-            child: TodoItem(data: data[index], toggleFinished: this.toggleFinished),
+            child: TodoItem(
+              data: data[index],
+              toggleFinished: this.toggleFinished,
+              toggleImportance: this.toggleImportance,
+            ),
             onDismissed: (direction) {
               delete(data[index].id);
               Scaffold.of(context).showSnackBar(SnackBar(content: Text("删除成功"), duration: Duration(milliseconds: 500)));
@@ -40,3 +46,4 @@ class TodoList extends StatelessWidget {
     );
   }
 }
+

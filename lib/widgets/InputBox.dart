@@ -11,7 +11,7 @@ class InputBox extends StatelessWidget {
 
   onSubmit(String title) {
     focusNode.unfocus();
-    onOk(Todo(id: Uuid().v1(), title: title, finished: false));
+    onOk(Todo(id: Uuid().v1(), title: title, finished: false, importance: false));
   }
 
   onChange(String title) {

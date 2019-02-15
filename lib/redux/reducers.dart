@@ -12,21 +12,18 @@ AppState appReducer(AppState state, action) {
       return state.copyWith();
     case Types.REMOVE_TODO:
       List<Todo> todoList = state.todoList;
-      for (int i = 0; i < todoList.length; i++) {
-        if (todoList[i].id == payload) {
-          todoList.removeAt(i);
-          break;
-        }
-      }
+      final int idx = state.todoList.indexWhere((todo) => todo.id == payload);
+      todoList.removeAt(idx);
       return state.copyWith();
     case Types.CHANGE_TODO_FINISHED:
       List<Todo> todoList = state.todoList;
-      for (int i = 0; i < todoList.length; i++) {
-        if (todoList[i].id == payload) {
-          todoList[i].finished = !todoList[i].finished;
-          break;
-        }
-      }
+      final int idx = state.todoList.indexWhere((todo) => todo.id == payload);
+      todoList[idx].finished = !todoList[idx].finished;
+      return state.copyWith();
+    case Types.CHANGE_TODO_IMPORTANCE:
+      List<Todo> todoList = state.todoList;
+      final int idx = state.todoList.indexWhere((todo) => todo.id == payload);
+      todoList[idx].importance = !todoList[idx].importance;
       return state.copyWith();
   }
   return state;

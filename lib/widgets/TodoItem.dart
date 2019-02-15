@@ -4,15 +4,18 @@ import '../model/todo.dart';
 class TodoItem extends StatelessWidget {
   final Todo data;
   final Function toggleFinished;
+  final Function toggleImportance;
 
   TodoItem({
     this.data,
     this.toggleFinished,
+    this.toggleImportance,
   });
 
   @override
   Widget build(BuildContext context) {
     final bool finished = data.finished;
+    final bool importance = data.importance;
     return Opacity(
       opacity: finished ? 0.5 : 1,
       child: Column(
@@ -35,7 +38,9 @@ class TodoItem extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
-                        IconButton(icon: Icon(Icons.star_border), onPressed: null),
+                        IconButton(icon: Icon(importance ? Icons.star : Icons.star_border), onPressed: () {
+                          toggleImportance(data.id);
+                        }),
                       ],
                     ),
                   )

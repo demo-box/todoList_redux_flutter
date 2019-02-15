@@ -1,13 +1,13 @@
-import 'package:flutter/foundation.dart';
-
 class Todo {
   String id;
   String title;
   bool finished;
+  bool importance;
 
   Todo({
-    @required this.id,
-    @required this.title,
-    @required this.finished,
+    this.id,
+    this.title,
+    this.finished,
+    this.importance,
   });
 }

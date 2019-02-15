@@ -46,15 +46,18 @@ class HomePageState extends State<HomePage> {
       converter: (store) {
         return HomePageViewModel(
           todoList: store.state.todoList,
-          addTodo: (todo) {
+          addTodo: (Todo todo) {
             store.dispatch(addTodo(todo));
           },
-          removeTodo: (id) {
+          removeTodo: (String id) {
             store.dispatch(removeTodo(id));
           },
-          toggleFinished: (id) {
+          toggleFinished: (String id) {
             store.dispatch(changeFinished(id));
           },
+          toggleImportance: (String id) {
+            store.dispatch(changeImportance(id));
+          }
         );
       },
       builder: (context, vm) {
@@ -83,7 +86,12 @@ class HomePageState extends State<HomePage> {
             },
             child: Stack(
               children: <Widget>[
-                TodoList(data: vm.todoList, delete: vm.removeTodo, toggleFinished: vm.toggleFinished),
+                TodoList(
+                  data: vm.todoList,
+                  delete: vm.removeTodo,
+                  toggleFinished: vm.toggleFinished,
+                  toggleImportance: vm.toggleImportance,
+                ),
                 isAddTodo ? Positioned(
                   child: InputBox(onOk: vm.addTodo, focusNode: focusNode),
                   bottom: 0,
@@ -104,11 +112,13 @@ class HomePageViewModel {
   final Function addTodo;
   final Function removeTodo;
   final Function toggleFinished;
+  final Function toggleImportance;
 
   HomePageViewModel({
     this.todoList,
     this.addTodo,
     this.removeTodo,
     this.toggleFinished,
+    this.toggleImportance,
   });
 }

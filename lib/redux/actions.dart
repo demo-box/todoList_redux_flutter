@@ -15,6 +15,11 @@ changeFinished(payload) => {
   'payload': payload,
 };
 
+changeImportance(payload) => {
+  'type': Types.CHANGE_TODO_IMPORTANCE,
+  'payload': payload,
+};
+
 addTodoPersist() {
   return () async {
     
