@@ -1,11 +1,10 @@
-import 'package:flutter/foundation.dart';
-import 'todoItem.dart';
+import '../model/todo.dart';
 
 class AppState {
-  List<TodoItem> todoList;
+  List<Todo> todoList;
 
   AppState({
-    @required this.todoList
+    this.todoList
   });
 
   AppState copyWith({ todoList }) {

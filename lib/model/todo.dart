@@ -1,11 +1,11 @@
 import 'package:flutter/foundation.dart';
 
-class TodoItem {
-  int id;
+class Todo {
+  String id;
   String title;
   bool finished;
 
-  TodoItem({
+  Todo({
     @required this.id,
     @required this.title,
     @required this.finished,

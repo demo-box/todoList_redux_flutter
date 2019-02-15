@@ -10,12 +10,13 @@ removeTodo(payload) => {
   'payload': payload,
 };
 
-changeTitle(payload) => {
-  'type': Types.CHANGE_TODO_TITLE,
-  'payload': payload,
-};
-
 changeFinished(payload) => {
   'type': Types.CHANGE_TODO_FINISHED,
   'payload': payload,
 };
+
+addTodoPersist() {
+  return () async {
+    
+  };
+}

@@ -1,22 +1,32 @@
 import 'types.dart';
+import '../model/todo.dart';
 import '../model/appState.dart';
 
 AppState appReducer(AppState state, action) {
-  final types = action['types'];
+  final type = action['type'];
   final payload = action['payload'];
 
-  switch (types) {
+  switch (type) {
     case Types.ADD_TODO:
       state.todoList.add(payload);
       return state.copyWith();
     case Types.REMOVE_TODO:
-      state.todoList.removeAt(payload);
-      return state.copyWith();
-    case Types.CHANGE_TODO_TITLE:
-      state.todoList[payload['id']].title = payload['title'];
+      List<Todo> todoList = state.todoList;
+      for (int i = 0; i < todoList.length; i++) {
+        if (todoList[i].id == payload) {
+          todoList.removeAt(i);
+          break;
+        }
+      }
       return state.copyWith();
     case Types.CHANGE_TODO_FINISHED:
-      state.todoList[payload['id']].title = payload['finished'];
+      List<Todo> todoList = state.todoList;
+      for (int i = 0; i < todoList.length; i++) {
+        if (todoList[i].id == payload) {
+          todoList[i].finished = !todoList[i].finished;
+          break;
+        }
+      }
       return state.copyWith();
   }
   return state;

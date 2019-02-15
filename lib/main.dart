@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:redux/redux.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:redux_thunk/redux_thunk.dart';
 import 'redux/reducers.dart';
 import 'model/appState.dart';
 import 'pages/home.dart';
 
-void main() async {
-  final store = Store<AppState>(
+void main() {
+  final Store<AppState> store = Store<AppState>(
     appReducer,
     initialState: AppState.initialState(),
+    middleware: [thunkMiddleware],
   );
-
-  return runApp(App(store));
+  runApp(App(store));
 }
 
 class App extends StatelessWidget {
-  Store<AppState> store;
+  final Store<AppState> store;
 
   App(this.store);
 
@@ -30,4 +31,3 @@ class App extends StatelessWidget {
     );
   }
 }
-
