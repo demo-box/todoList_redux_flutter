@@ -45,8 +45,20 @@ class HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return StoreConnector<AppState, TodoListViewModel>(
       converter: (store) {
+        final int cateIdx = store.state.cateIdx;
         return TodoListViewModel(
-          todoList: store.state.todoList,
+          todoList: store.state.todoList.where((Todo todo) {
+            switch (cateIdx) {
+              case 1:
+                return todo.finished;
+              case 2:
+                return !todo.finished;
+              case 3:
+                return todo.importance;
+            }
+            return true;
+          }).toList(),
+          cateIdx: cateIdx,
           addTodo: (Todo todo) {
             store.dispatch(addTodo(todo));
           },
@@ -94,7 +106,7 @@ class HomePageState extends State<HomePage> {
                   toggleImportance: vm.toggleImportance,
                 ),
                 isAddTodo ? Positioned(
-                  child: InputBox(onOk: vm.addTodo, focusNode: focusNode),
+                  child: InputBox(onOk: vm.addTodo, focusNode: focusNode, cateIdx: vm.cateIdx),
                   bottom: 0,
                   left: 0,
                   right: 0,

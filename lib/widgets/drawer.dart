@@ -5,14 +5,7 @@ import '../model/appState.dart';
 import '../redux/actions.dart';
 
 
-class MyDrawer extends StatefulWidget {
-  @override
-  MyDrawerState createState() {
-    return new MyDrawerState();
-  }
-}
-
-class MyDrawerState extends State<MyDrawer> {
+class MyDrawer extends StatelessWidget {
   final List cates = [
     {
       'title': '所有',

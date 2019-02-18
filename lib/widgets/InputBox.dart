@@ -6,12 +6,25 @@ class InputBox extends StatelessWidget {
   FocusNode focusNode;
   Function onOk;
   String title;
+  int cateIdx;
 
-  InputBox({ this.focusNode, this.onOk });
+  InputBox({ this.focusNode, this.onOk, this.cateIdx });
 
   onSubmit(String title) {
     focusNode.unfocus();
-    onOk(Todo(id: Uuid().v1(), title: title, finished: false, importance: false));
+    var todo;
+    final uid = Uuid().v1();
+    switch (cateIdx) {
+      case 1:
+        todo = Todo(id: uid, title: title, finished: true, importance: false);
+        break;
+      case 3:
+        todo = Todo(id: uid, title: title, finished: false, importance: true);
+        break;
+      default:
+        todo = Todo(id: uid, title: title, finished: false, importance: false);
+    }
+    onOk(todo);
   }
 
   onChange(String title) {
