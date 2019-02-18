@@ -25,6 +25,8 @@ AppState appReducer(AppState state, action) {
       final int idx = state.todoList.indexWhere((todo) => todo.id == payload);
       todoList[idx].importance = !todoList[idx].importance;
       return state.copyWith();
+    case Types.CHANGE_CATE_IDX:
+      return state.copyWith(cateIdx: payload);
   }
   return state;
 }

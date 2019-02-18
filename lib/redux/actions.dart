@@ -20,8 +20,7 @@ changeImportance(payload) => {
   'payload': payload,
 };
 
-addTodoPersist() {
-  return () async {
-    
-  };
-}
+changeCateIdx(payload) => {
+  'type': Types.CHANGE_CATE_IDX,
+  'payload': payload,
+};
