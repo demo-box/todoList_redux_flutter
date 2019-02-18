@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import '../model/appState.dart';
+import '../viewModel/todoList.dart';
+import '../model/todo.dart';
+import '../redux/actions.dart';
 import '../widgets/SearchNotFound.dart';
+import '../widgets/TodoList.dart';
 
 class SearchPage {
 
@@ -12,6 +18,14 @@ class SearchPage {
 
 
 class MySearchDelegate extends SearchDelegate<String> {
+
+  Widget _buildInitPlaceholder() {
+    return Align(
+      alignment: Alignment.center,
+      child: Text('输入todo内容，可以搜索🔍哦==', style: TextStyle(fontSize: 18.0)),
+    );
+  }
+
   @override
   List<Widget> buildActions(BuildContext context) {
     return <Widget>[
@@ -21,11 +35,7 @@ class MySearchDelegate extends SearchDelegate<String> {
         onPressed: () {
           query = '';
         },
-      ) : IconButton(
-        tooltip: 'Voice',
-        icon: Icon(Icons.mic),
-        onPressed: () {},
-      ),
+      ) : Container(height: 0, width: 0),
     ];
   }
 
@@ -42,11 +52,38 @@ class MySearchDelegate extends SearchDelegate<String> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    return Text('suggestions');
+    return _buildInitPlaceholder();
   }
 
   @override
   Widget buildResults(BuildContext context) {
-    return query.isNotEmpty ? SearchNotFound() : null;
+    return StoreConnector<AppState, TodoListViewModel>(
+      converter: (store) {
+        return TodoListViewModel(
+          todoList: store.state.todoList,
+          removeTodo: (String id) {
+            store.dispatch(removeTodo(id));
+          },
+          toggleFinished: (String id) {
+            store.dispatch(changeFinished(id));
+          },
+          toggleImportance: (String id) {
+            store.dispatch(changeImportance(id));
+          }
+        );
+      },
+      builder: (context, vm) {
+        if (query.isEmpty) {
+          return _buildInitPlaceholder();
+        }
+        List<Todo> data = vm.todoList.where((todo) => todo.title.indexOf(query) > -1).toList();
+        return data.length > 0 ? TodoList(
+          data: data,
+          toggleImportance: vm.toggleImportance,
+          toggleFinished: vm.toggleFinished,
+          delete: vm.removeTodo,
+        ) : SearchNotFound();
+      },
+    );
   }
 }

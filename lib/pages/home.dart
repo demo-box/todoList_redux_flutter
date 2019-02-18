@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import '../viewModel/todoList.dart';
 import '../model/appState.dart';
 import '../model/todo.dart';
 import '../widgets/drawer.dart';
@@ -42,9 +43,9 @@ class HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return StoreConnector<AppState, HomePageViewModel>(
+    return StoreConnector<AppState, TodoListViewModel>(
       converter: (store) {
-        return HomePageViewModel(
+        return TodoListViewModel(
           todoList: store.state.todoList,
           addTodo: (Todo todo) {
             store.dispatch(addTodo(todo));
@@ -107,18 +108,3 @@ class HomePageState extends State<HomePage> {
   }
 }
 
-class HomePageViewModel {
-  final List<Todo> todoList;
-  final Function addTodo;
-  final Function removeTodo;
-  final Function toggleFinished;
-  final Function toggleImportance;
-
-  HomePageViewModel({
-    this.todoList,
-    this.addTodo,
-    this.removeTodo,
-    this.toggleFinished,
-    this.toggleImportance,
-  });
-}

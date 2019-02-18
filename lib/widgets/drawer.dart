@@ -28,7 +28,6 @@ class MyDrawer extends StatelessWidget {
                             'https://avatar-static.segmentfault.com/194/095/1940951021-580ed1e6de49e_huge256'),
                       ),
                       IconButton(icon: Icon(Icons.search), onPressed: () {
-                        print("hello");
                         SearchPage.showSearchPage(context);
                       })
                     ],
